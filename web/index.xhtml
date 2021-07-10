@@ -6,7 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Login</title>
     </h:head>
     <h:body>
         <h:form>            
@@ -20,12 +20,12 @@
                                     <h:panelGrid columns="2" cellpadding="5">
 
                                         <h:outputLabel for="username" value="username" />
-                                        <p:inputText id="username" value="#{loginBean.uname}" required="true" label="username"/>
+                                        <p:inputText id="username" value="#{loginBean.uname}" required="true" label="Username"/>
 
                                         <h:outputLabel for="password" value="password" />
-                                        <p:password id="password" value="#{loginBean.password}" required="true" label="password" />
+                                        <p:password id="password" value="#{loginBean.password}" required="true" label="Password" />
 
-                                        <p:commandButton value="Login"  action="#{loginBean.loginProject}" />
+                                        <p:commandButton value="Login"  action="#{loginBean.doLogin}" />
 
                                     </h:panelGrid>
                                 </p:panel>

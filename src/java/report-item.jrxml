@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="memorable-report" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="50" uuid="f31d854a-dc60-4202-a520-3d3b6eeb7de4">
+	<property name="ireport.zoom" value="1.6500000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="TITULO" class="java.lang.String"/>
+	<parameter name="DATA_CORRENTE" class="java.lang.String"/>
+	<field name="reference" class="java.lang.String"/>
+	<field name="beneficiary.name" class="java.lang.String"/>
+	<field name="exemptionValue" class="java.lang.Double"/>
+	<field name="paymentStatus" class="java.lang.String"/>
+	<field name="dateIn" class="java.sql.Date"/>
+	<field name="dateOut" class="java.sql.Date"/>
+	<field name="beneficiary.instituition.name" class="java.lang.String"/>
+	<field name="beneficiary.category.name" class="java.lang.String"/>
+	<field name="contabilizationNote" class="java.lang.String"/>
+	<group name="ministerio-i">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupFooter>
+			<band height="17"/>
+		</groupFooter>
+	</group>
+	<group name="ministerio-ii">
+		<groupExpression><![CDATA[$F{beneficiary.instituition.name}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<line>
+					<reportElement uuid="a0e87f46-42ca-4dcb-b86c-15ee7b774323" stretchType="RelativeToBandHeight" x="0" y="19" width="802" height="1" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dotted"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement uuid="58238959-8f28-4fff-a889-5a58be7f03ae" x="0" y="0" width="164" height="19"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{beneficiary.instituition.name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="ministerio-iii">
+		<groupExpression><![CDATA[$F{paymentStatus}]]></groupExpression>
+		<groupHeader>
+			<band height="22">
+				<textField>
+					<reportElement uuid="a76970fb-1d2f-459b-80b1-d812d6c8a8db" x="72" y="0" width="92" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{paymentStatus}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="a0e87f46-42ca-4dcb-b86c-15ee7b774323" stretchType="RelativeToBandHeight" x="72" y="20" width="730" height="1" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dotted"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="14">
+				<staticText>
+					<reportElement uuid="5e4cfd3e-3b9d-4f53-9a80-3d038c63f7fe" mode="Opaque" x="166" y="0" width="56" height="14" backcolor="#FFFFFF"/>
+					<textElement>
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SubTOTAL]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="ae2ee571-9f74-43b3-8f25-ef4b23371297" mode="Opaque" x="163" y="0" width="1" height="14"/>
+					<graphicElement>
+						<pen lineStyle="Dotted"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="a0e87f46-42ca-4dcb-b86c-15ee7b774323" stretchType="RelativeToBandHeight" x="163" y="0" width="635" height="1" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dotted"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="154" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="229bd3ca-4c07-40f6-bc46-ad15862cb2bc" x="291" y="68" width="190" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPÚBLICA DE MOÇAMBIQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="229bd3ca-4c07-40f6-bc46-ad15862cb2bc" x="300" y="83" width="174" height="13"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MINISTÉRIO DAS FINANÇAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="229bd3ca-4c07-40f6-bc46-ad15862cb2bc" x="254" y="98" width="262" height="10"/>
+				<textElement textAlignment="Center">
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[DIRECÇÃO NACIONAL DE CONTABILIDADE PÚBLICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="229bd3ca-4c07-40f6-bc46-ad15862cb2bc" x="274" y="108" width="228" height="10"/>
+				<textElement textAlignment="Center">
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[SISTEMA DE GESTÃO E CONTROLO DE PAGAMENTO DE ENCARGOS ADUANEIROS]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="e832c3d6-d3f1-4d62-b7f3-c68158bee09c" x="235" y="129" width="308" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TITULO}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="ee387818-4068-4c8c-9416-52cf1da20631" x="353" y="19" width="94" height="49"/>
+				<imageExpression><![CDATA["/root/NetBeansProjects/cvs1/projets/isencao/web/img/emblema.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="23">
+			<rectangle>
+				<reportElement uuid="255c6fca-79e3-4482-afbc-a54af794a537" x="0" y="1" width="802" height="20" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="eedbc323-cf31-401b-887a-af79d8e993a0" x="0" y="0" width="164" height="20" backcolor="#FFFF99"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ INSTITUIÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eedbc323-cf31-401b-887a-af79d8e993a0" x="166" y="0" width="147" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2eaaeb58-0ee4-464a-9327-3e06b41147b8" x="316" y="0" width="131" height="20"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MEMORANDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eedbc323-cf31-401b-887a-af79d8e993a0" x="450" y="0" width="124" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FUNÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eedbc323-cf31-401b-887a-af79d8e993a0" x="651" y="0" width="71" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR (MT)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eedbc323-cf31-401b-887a-af79d8e993a0" x="575" y="0" width="75" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N/A]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21">
+			<textField>
+				<reportElement uuid="ffca1e05-7c52-4ea2-8d57-28e546a6a0c5" x="166" y="0" width="147" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{beneficiary.name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="770c3ada-901e-460c-9aec-52532f109836" x="316" y="0" width="132" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reference}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cee96298-0e14-4311-85e7-7f5ef2a27a25" x="651" y="1" width="71" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("#,###.##").format($F{exemptionValue})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ae974177-a0b9-4fd2-816b-c2ab440f93cc" x="450" y="1" width="123" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{beneficiary.category.name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1ccd044d-2c60-44b5-843a-27baa12e09a6" x="575" y="0" width="75" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contabilizationNote}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="ae2ee571-9f74-43b3-8f25-ef4b23371297" x="163" y="-22" width="1" height="43"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="19">
+			<textField>
+				<reportElement uuid="5e8c4818-9836-436e-841c-86570b25dca3" x="731" y="0" width="71" height="19"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c87086c5-b4ba-4030-8629-278a55634b16" x="0" y="0" width="85" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Processado por computador]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="0f3708d7-cccd-4187-b21a-5cb2973868cd" x="85" y="0" width="78" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DATA_CORRENTE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
