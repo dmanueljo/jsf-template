@@ -9,11 +9,13 @@ import java.io.Serializable;
 import mz.nilzaproject.cedsif.dao.datasource.ArmazemDSImpl;
 import mz.nilzaproject.cedsif.model.db.Usuario;
 import org.springframework.orm.hibernate4.HibernateTemplate;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author nilza.graca
  */
+@Repository
 public class UsuarioDAOImpl extends ArmazemDSImpl<Usuario, Integer> implements UsuarioDAO{
     
     public UsuarioDAOImpl(HibernateTemplate htemplate) {
