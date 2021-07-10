@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public abstract class ArmazemDSImpl<T extends Object,ID extends Serializable> implements ArmazemDS<T,ID> {
    
+    //@Autowired
     private Session session;
     
     private static Log LOG = LogFactory.getLog(ArmazemDSImpl.class);
@@ -34,7 +35,15 @@ public abstract class ArmazemDSImpl<T extends Object,ID extends Serializable> im
         this.clazz = (Class<T>) ((ParameterizedType) getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[0];
         
-        this.session = htemplate.getSessionFactory().getCurrentSession();
+       // if(htemplate.getSessionFactory().getCurrentSession()==null){
+            
+            this.session = htemplate.getSessionFactory().openSession();
+            
+        //}else{
+         
+          //  this.session = htemplate.getSessionFactory().getCurrentSession();
+        
+        //}
         
         LOG.warn("Loading class[" + this.clazz.getName()+"]");  
 

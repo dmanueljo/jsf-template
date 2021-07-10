@@ -13,11 +13,14 @@ import javax.inject.Named;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Qualifier;
 import mz.nilzaproject.cedsif.dao.UsuarioDAO;
 import mz.nilzaproject.cedsif.dao.UsuarioDAOImpl;
 import mz.nilzaproject.cedsif.model.db.Usuario;
 import mz.nilzaproject.cedsif.service.UsuarioService;
 import mz.nilzaproject.cedsif.service.UsuarioServiceImpl;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.orm.hibernate4.HibernateTemplate;
@@ -39,8 +42,9 @@ public class LoginBean implements Serializable{
     private String password;
     private String descricao;
 
+     private static Log LOG = LogFactory.getLog(LoginBean.class);
         
-    @Autowired
+    @org.springframework.beans.factory.annotation.Qualifier(value = "userService")
     private UsuarioService userService;
     
     
@@ -106,8 +110,8 @@ public class LoginBean implements Serializable{
      */
     public String doLogin(){
         
-        userService.createOrUpdate(new Usuario(1, "USER", username, password, "EMPTY"));
-        
+        //userService.createOrUpdate(new Usuario(1, "USER", username, password, "EMPTY"));
+        LOG.info("Button Login Requested");
         return "login";
     }
     
