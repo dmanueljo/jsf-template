@@ -9,12 +9,15 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces</title>
+                <title>Sistema de Gestao de Equipamento</title>
             </f:facet>
         </h:head>
 
         <h:body>
-
+            <f:metadata>
+            <f:viewParam name="username" value="#{loginBean.pageItem}"/>
+        </f:metadata>
+            <h:form>
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
@@ -25,25 +28,27 @@
                     Footer
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                <p:layoutUnit position="west" size="250" collapsible="true" >
                     <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" target="centerId"/>
-                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
-
+                                <p:submenu label="Equipamento">
+                                    <p:menuitem value="Registar Equipamento"  action="#{loginBean.chooseLink('equipamento-registar.xhtml')}"/>
+                                    <p:menuitem value="Listar de Equipamento" action="#{loginBean.chooseLink('equipamento-listar.xhtml')}" />
+                                    <p:menuitem value="Relatorio"     url="#" />
+                                </p:submenu>
+                        
+                        <p:submenu label="">
+                            <p:menuitem value="Logout" action="#{loginBean.doLogout}" />
                         </p:submenu>
-
+                       
                     </p:menu>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="center" id="centerId">
-                    Welcome to PrimeFaces
+                <p:layoutUnit position="center" id="centerId" >
+                    <ui:include src="#{loginBean.link}"/>
                 </p:layoutUnit>
 
             </p:layout>
-
+        </h:form>
         </h:body>
 
     </f:view>

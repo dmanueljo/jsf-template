@@ -16,7 +16,7 @@
                     <table width="500" height="300" cellpadding="0" cellspacing="0" border="0" align="center">
                         <tr>
                             <td align="center">
-                                <p:panel header="Cadastro de Material Informático Obsoleto">
+                                <p:panel header="Cadastro de Equipamento Informático Obsoleto">
                                     <h:panelGrid columns="2" cellpadding="5">
 
                                         
@@ -28,22 +28,22 @@
                                         <f:selectItem itemLabel="LAPTOP" itemValue="3"/>
                                         </h:selectOneMenu>
                                         <p:message for="tipo"/>
-                                        <h:outputText value="#{selectorView.tipo}"/>
+                                        <h:outputText value="#{itemBean.tipo}"/>
                                                                             
                                         <h:outputLabel for="marca" value="Marca" />
-                                        <p:inputText id="marca" value="#{loginBean.marca}" required="true" label="Marca" />
+                                        <p:inputText id="marca" value="#{itemBean.marca}" required="true" label="Marca" />
 
                                         <h:outputLabel for="processador" value="Processador" />
-                                        <p:inputText id="processador" value="#{loginBean.processador}" required="true" label="Processador" />
+                                        <p:inputText id="processador" value="#{itemBean.processador}" required="true" label="Processador" />
                                         
                                         <h:outputLabel for="referencia" value="Referencia" />
-                                        <p:inputText id="referencia" value="#{loginBean.referencia}" required="true" label="Referência" />
+                                        <p:inputText id="referencia" value="#{itemBean.referencia}" required="true" label="Referência" />
                                
                                         <h:outputLabel for="serialNumber" value="Número de Serié" />
-                                        <p:inputText id="serialNumber" value="#{loginBean.serialNumber}" required="true" label="Número de Serié" />
+                                        <p:inputText id="serialNumber" value="#{itemBean.serialNumber}" required="true" label="Número de Serié" />
                                         
                                             <h:outputLabel for="anoFabrico" value="Ano de Fabrico"/>
-                                            <h:selectOneMenu id="anoFabrico" value="#{selectorView.anoFabrico}" required="true" label="Ano ">
+                                            <h:selectOneMenu id="anoFabrico" value="#{itemBean.anoFabrico}" required="true" label="Ano ">
                                             <f:selectItem itemLabel="Selecione o Ano" itemValue="" noSelectionOption="true"/>
                                             <f:selectItem itemLabel="2000" itemValue="1"/>
                                             <f:selectItem itemLabel="2001" itemValue="2"/>
@@ -65,10 +65,10 @@
                                             <f:selectItem itemLabel="2017" itemValue="18"/>
                                             </h:selectOneMenu>
                                             <p:message for="anoFabrico"/>
-                                            <h:outputText value="#{selectorView.anoFabrico}"/>
+                                            <h:outputText value="#{itemBean.anoFabrico}"/>
                                        
-                                        <p:commandButton value="Gravar"  action="#{loginBean.gravarMaterial}" />
-                                         <p:commandButton value="Limpar"  action="#{loginBean.limpar}" />
+                                        <p:commandButton value="Gravar"  action="#{itemBean.gravar}" />
+                                         <p:commandButton value="Limpar"  action="#{itemBean.deletar}" />
 
                                     </h:panelGrid>
                                 </p:panel>

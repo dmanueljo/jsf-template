@@ -6,25 +6,21 @@
 package mz.nilzaproject.cedsif.bean;
 
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.inject.Named;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlInputText;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Qualifier;
-import mz.nilzaproject.cedsif.dao.UsuarioDAO;
-import mz.nilzaproject.cedsif.dao.UsuarioDAOImpl;
 import mz.nilzaproject.cedsif.model.db.Usuario;
 import mz.nilzaproject.cedsif.service.UsuarioService;
-import mz.nilzaproject.cedsif.service.UsuarioServiceImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.SessionScope;
 
 /**
  *
@@ -33,76 +29,55 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ManagedBean(name = "loginBean")
-@RequestScoped
+@ViewScoped
 public class LoginBean implements Serializable{
     
+    /**
+     * 
+     * Utilizando os Backing Beans, para
+     * Fazer as ligacoes dos componentes do JSF renderizados pela HTML
+     * e os Controllers
+     */
+    private HtmlInputText inputUser;
     
-    private Long id;
-    private String username;
-    private String password;
-    private String descricao;
+    private String link;
+
+    private String pageItem;
 
      private static Log LOG = LogFactory.getLog(LoginBean.class);
         
-    @org.springframework.beans.factory.annotation.Qualifier(value = "userService")
+    @Inject
     private UsuarioService userService;
+
     
     
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
+    public String getLink() {
+        return link;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    /**
-     * @return the username
-     */
-    public String getUsername() {
-        return username;
+    public String chooseLink(String link) {
+        
+        //add parameter dynamically to view
+        this.link = link;
+        
+        LOG.info("Button Link Requested. Selected Link"+this.link);
+        return "menu";
     }
 
-    /**
-     * @param username the username to set
-     */
-    public void setUsername(String username) {
-        this.username = username;
+  
+    public HtmlInputText getInputUser() {
+        return inputUser;
     }
 
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
+    public void setInputUser(HtmlInputText inputUser) {
+        this.inputUser = inputUser;
     }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * @return the descricao
-     */
-    public String getDescricao() {
-        return descricao;
-    }
-
-    /**
-     * @param descricao the descricao to set
-     */
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+    
+      
     
     /**
      * Redireciona a tela para o menu
@@ -110,9 +85,38 @@ public class LoginBean implements Serializable{
      */
     public String doLogin(){
         
+        Map<String,String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        
+        String username = map.get("j_idt5:username");
+        String password = map.get("j_idt5:password");
+        //FacesServlet servle = Servlet
+        try{
+            userService.createOrUpdate(new Usuario(1, "ADMIN", username, password, "NI Graca"));
+            LOG.info("Button Login Requested. Sending Request to Menu.xhtml"+username+""+password+""+map.keySet());
+
+        }catch(NullPointerException nux){
+        
+             LOG.info("Button Login Requested. Error"+nux.getLocalizedMessage());
+        }
+        return "menu";
+    }
+    
+    public String doLogout(){
+        
         //userService.createOrUpdate(new Usuario(1, "USER", username, password, "EMPTY"));
-        LOG.info("Button Login Requested");
+        LOG.info("Button Logout Requested. Sending Request to Login.xhtml");
         return "login";
     }
+
+    public String getPageItem() {
+        return pageItem;
+    }
+
+    public void setPageItem(String pageItem) {
+        this.pageItem = pageItem;
+    }
+    
+    
+    
     
 }

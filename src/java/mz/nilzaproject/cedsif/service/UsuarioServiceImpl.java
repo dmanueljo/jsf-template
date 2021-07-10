@@ -11,11 +11,13 @@ import mz.nilzaproject.cedsif.dao.UsuarioDAOImpl;
 import mz.nilzaproject.cedsif.model.db.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author nilza.graca
  */
+@Component
 public class UsuarioServiceImpl implements UsuarioService{
 
     //@Autowired

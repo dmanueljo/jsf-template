@@ -5,6 +5,7 @@
  */
 package mz.nilzaproject.cedsif.bean;
 
+import javax.faces.bean.ManagedBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,8 @@ import org.springframework.stereotype.Component;
  * @author nilza.graca
  */
 @Component
-@Scope("view")
+//@Scope("view")
+@ManagedBean
 public class ArmazemItemBean {
     
 }
