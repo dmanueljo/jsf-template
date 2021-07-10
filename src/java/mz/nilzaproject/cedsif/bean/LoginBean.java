@@ -16,6 +16,8 @@ import javax.inject.Named;
 import mz.nilzaproject.cedsif.dao.UsuarioDAO;
 import mz.nilzaproject.cedsif.dao.UsuarioDAOImpl;
 import mz.nilzaproject.cedsif.model.db.Usuario;
+import mz.nilzaproject.cedsif.service.UsuarioService;
+import mz.nilzaproject.cedsif.service.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.orm.hibernate4.HibernateTemplate;
@@ -37,22 +39,10 @@ public class LoginBean implements Serializable{
     private String password;
     private String descricao;
 
-    @Autowired
-    HibernateTemplate ht;
-    
-    UsuarioDAO udao;
-    
-    @PostConstruct
-    public void init(){
-        udao = new UsuarioDAOImpl(ht);
-        this.username="";
-        this.password="";
-    }
-    
-    public LoginBean() {
         
-    }
-
+    @Autowired
+    private UsuarioService userService;
+    
     
     /**
      * @return the id
@@ -116,9 +106,9 @@ public class LoginBean implements Serializable{
      */
     public String doLogin(){
         
-        udao.createOrUpdate(new Usuario(1, "USER", username, password, "EMPTY"));
+        userService.createOrUpdate(new Usuario(1, "USER", username, password, "EMPTY"));
         
-        return "menu";
+        return "login";
     }
     
 }

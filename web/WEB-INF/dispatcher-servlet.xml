@@ -23,9 +23,10 @@
     <context:component-scan base-package="mz.nilzaproject.cedsif.controller" />
     <mvc:annotation-driven/>
 
-    <!--Step2
-    <import resource="classpath:datasource-prod-config.xml"/> -->
+    <!--Step2-->
+    <import resource="classpath:datasource-prod-config.xml"/> 
 
+    <import resource="classpath:service-injection.xml"/>
  
 
 </beans>
