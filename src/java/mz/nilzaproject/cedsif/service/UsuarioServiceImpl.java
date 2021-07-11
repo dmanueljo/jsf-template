@@ -12,42 +12,36 @@ import mz.nilzaproject.cedsif.model.db.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author nilza.graca
  */
-@Component
+@Service
 public class UsuarioServiceImpl implements UsuarioService{
 
     //@Autowired
-    private HibernateTemplate htemplate;
-    //injectando a dependencia do service com o userdao
     private UsuarioDAO usuarioDAO;
-
-    public UsuarioServiceImpl(HibernateTemplate htemplate) {
-        this.htemplate = htemplate;
-        this.usuarioDAO = new UsuarioDAOImpl(htemplate);
-    }
 
     @Override
     public void createOrUpdate(Usuario t) {
-        usuarioDAO.createOrUpdate(t);
+        this.usuarioDAO.createOrUpdate(t);
     }
 
     @Override
     public Usuario read(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return this.usuarioDAO.read(id);
     }
 
     @Override
     public Usuario delete(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return this.usuarioDAO.delete(id);
     }
 
     @Override
     public List<Usuario> list() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return this.usuarioDAO.list();
     }
     
 }

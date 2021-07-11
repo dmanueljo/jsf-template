@@ -21,11 +21,11 @@
 
                                         
                                         <h:outputLabel for="tipo" value="Tipo de Material"/>
-                                        <h:selectOneMenu id="tipo" value="#{selectorView.tipo}" required="true" label="Tipo de Material">
+                                        <h:selectOneMenu id="tipo" value="#{itemBean.tipo}" required="true" label="Tipo de Material">
                                         <f:selectItem itemLabel="Selecione uma opção" itemValue="" noSelectionOption="true"/>
-                                        <f:selectItem itemLabel="IMPRESSORA" itemValue="1"/>
-                                        <f:selectItem itemLabel="DESKTOP" itemValue="2"/>
-                                        <f:selectItem itemLabel="LAPTOP" itemValue="3"/>
+                                        <f:selectItem itemLabel="IMPRESSORA" itemValue="IMPRESSORA"/>
+                                        <f:selectItem itemLabel="DESKTOP" itemValue="DESKTOP"/>
+                                        <f:selectItem itemLabel="LAPTOP" itemValue="LAPTOP"/>
                                         </h:selectOneMenu>
                                         <p:message for="tipo"/>
                                         <h:outputText value="#{itemBean.tipo}"/>
@@ -67,8 +67,8 @@
                                             <p:message for="anoFabrico"/>
                                             <h:outputText value="#{itemBean.anoFabrico}"/>
                                        
-                                        <p:commandButton value="Gravar"  action="#{itemBean.gravar}" />
-                                         <p:commandButton value="Limpar"  action="#{itemBean.deletar}" />
+                                            <p:commandButton value="Gravar"  action="#{itemBean.registarMaterial()}" />
+                                         
 
                                     </h:panelGrid>
                                 </p:panel>

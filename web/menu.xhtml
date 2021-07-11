@@ -15,7 +15,7 @@
 
         <h:body>
             <f:metadata>
-            <f:viewParam name="username" value="#{loginBean.pageItem}"/>
+            <f:viewParam name="username" value="#{loginBean.username}"/>
         </f:metadata>
             <h:form>
             <p:layout fullPage="true">
@@ -31,9 +31,9 @@
                 <p:layoutUnit position="west" size="250" collapsible="true" >
                     <p:menu>
                                 <p:submenu label="Equipamento">
-                                    <p:menuitem value="Registar Equipamento"  action="#{loginBean.chooseLink('equipamento-registar.xhtml')}"/>
-                                    <p:menuitem value="Listar de Equipamento" action="#{loginBean.chooseLink('equipamento-listar.xhtml')}" />
-                                    <p:menuitem value="Relatorio"     url="#" />
+                                    <p:menuitem value="Registar Equipamento"  action="#{menuBean.chooseLink('equipamento-registar.xhtml')}" ajax="false"/>
+                                    <p:menuitem value="Listar de Equipamento" action="#{menuBean.chooseLink('equipamento-listar.xhtml')}"   ajax="false"/>
+                                    <p:menuitem value="Relatorio"             url="#" />
                                 </p:submenu>
                         
                         <p:submenu label="">
@@ -44,7 +44,7 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center" id="centerId" >
-                    <ui:include src="#{loginBean.link}"/>
+                    <ui:include src="#{menuBean.link}"/>
                 </p:layoutUnit>
 
             </p:layout>
@@ -53,4 +53,3 @@
 
     </f:view>
 </html>
-

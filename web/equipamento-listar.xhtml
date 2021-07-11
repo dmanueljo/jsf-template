@@ -21,9 +21,15 @@
                                     <h:panelGrid columns="8" cellpadding="10">
 
                                         
-                                        <p:dataTable id="Material" var="material" value="#{dtContextMenuView.material}" rowKey="#{material.id}"
-                     selection="#{dtContextMenuView.selectedMaterial}" selectionMode="single">
+                                        <p:dataTable id="Material" 
+                                                     var="material" 
+                                                     value="#{itemBean.listarMaterial}"
+                                                     selectionMode="single">
             
+            <p:column headerText="Id">
+                <h:outputText value="#{material.id}" /> 
+            </p:column>
+                                            
             <p:column headerText="Tipo">
                 <h:outputText value="#{material.tipo}" /> 
             </p:column>

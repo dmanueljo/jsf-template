@@ -15,6 +15,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import mz.nilzaproject.cedsif.model.db.Usuario;
 import mz.nilzaproject.cedsif.service.UsuarioService;
 import org.apache.commons.logging.Log;
@@ -29,7 +30,7 @@ import org.springframework.web.context.request.SessionScope;
 
 @Component
 @ManagedBean(name = "loginBean")
-@ViewScoped
+@RequestScoped
 public class LoginBean implements Serializable{
     
     /**
@@ -40,35 +41,22 @@ public class LoginBean implements Serializable{
      */
     private HtmlInputText inputUser;
     
-    private String link;
-
-    private String pageItem;
+    @ManagedProperty(value="#{menuBean}")
+    private String username;
 
      private static Log LOG = LogFactory.getLog(LoginBean.class);
         
     @Inject
     private UsuarioService userService;
 
-    
-    
-    public String getLink() {
-        return link;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String chooseLink(String link) {
-        
-        //add parameter dynamically to view
-        this.link = link;
-        
-        LOG.info("Button Link Requested. Selected Link"+this.link);
-        return "menu";
-    }
-
-  
     public HtmlInputText getInputUser() {
         return inputUser;
     }
@@ -76,8 +64,7 @@ public class LoginBean implements Serializable{
     public void setInputUser(HtmlInputText inputUser) {
         this.inputUser = inputUser;
     }
-    
-      
+   
     
     /**
      * Redireciona a tela para o menu
@@ -87,7 +74,7 @@ public class LoginBean implements Serializable{
         
         Map<String,String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         
-        String username = map.get("j_idt5:username");
+        String usernam = map.get("j_idt5:username");
         String password = map.get("j_idt5:password");
         //FacesServlet servle = Servlet
         try{
@@ -98,23 +85,21 @@ public class LoginBean implements Serializable{
         
              LOG.info("Button Login Requested. Error"+nux.getLocalizedMessage());
         }
-        return "menu";
+        return "menu?faces-redirect=true";
     }
     
     public String doLogout(){
         
         //userService.createOrUpdate(new Usuario(1, "USER", username, password, "EMPTY"));
-        LOG.info("Button Logout Requested. Sending Request to Login.xhtml");
-        return "login";
+        LOG.info("Button Logout Requested. Sending Request to Logout.xhtml");
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+        session.invalidate();
+        
+        return "logout?faces-redirect=true";
     }
 
-    public String getPageItem() {
-        return pageItem;
-    }
-
-    public void setPageItem(String pageItem) {
-        this.pageItem = pageItem;
-    }
+    
     
     
     

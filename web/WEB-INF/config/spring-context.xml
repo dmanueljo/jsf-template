@@ -45,4 +45,10 @@
           class="org.springframework.context.support.ResourceBundleMessageSource"
           p:basenames="messages" />
     
+    <!--Step2-->
+    <import resource="classpath:datasource-prod-config.xml"/> 
+    
+    <!--Step2-->
+    <import resource="classpath:service-injection.xml"/>
+    
 </beans>

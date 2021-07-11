@@ -11,26 +11,20 @@ import mz.nilzaproject.cedsif.dao.MaterialDAOImpl;
 import mz.nilzaproject.cedsif.model.db.Material;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author nilza.graca
  */
+@Service
 public class MaterialServiceImpl implements MaterialService {
 
     //Chamada dinamica da referencia ao objecto do DAO
     //pela configuracao do spring.xml
-    @Autowired
-    private HibernateTemplate htemplate;
-    
+    @Autowired 
     private MaterialDAO materialDAO;
-
-    public MaterialServiceImpl(HibernateTemplate htemplate) {
-        this.materialDAO = new MaterialDAOImpl(htemplate);
-    }
-    
-    
-    
 
     @Override
     public void createOrUpdate(Material t) {
@@ -47,13 +41,13 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public Material delete(Integer id) {
        
-        return this.delete(id);
+        return this.materialDAO.delete(id);
     }
 
     @Override
     public List<Material> list() {
         
-        return this.list();
+        return this.materialDAO.list();
     }
     
     
