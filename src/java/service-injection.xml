@@ -10,7 +10,7 @@
     
     
     <!-- DAOs-->
-    <bean name="userDAO" class="mz.nilzaproject.cedsif.dao.UsuarioDAOImpl">
+    <bean name="userDao" class="mz.nilzaproject.cedsif.dao.UsuarioDAOImpl">
          <constructor-arg name="htemplate" ref="htemplate"/>
     </bean>
     

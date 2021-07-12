@@ -31,7 +31,7 @@
                                         <h:outputText value="#{itemBean.tipo}"/>
                                                                             
                                         <h:outputLabel for="marca" value="Marca" />
-                                        <p:inputText id="marca" value="#{itemBean.marca}" required="true" label="Marca" />
+                                        <p:inputText id="marca" value="#{itemBean.marca}" required="true" label="Marca"  />
 
                                         <h:outputLabel for="processador" value="Processador" />
                                         <p:inputText id="processador" value="#{itemBean.processador}" required="true" label="Processador" />
@@ -67,7 +67,7 @@
                                             <p:message for="anoFabrico"/>
                                             <h:outputText value="#{itemBean.anoFabrico}"/>
                                        
-                                            <p:commandButton value="Gravar"  action="#{itemBean.registarMaterial()}" />
+                                            <p:commandButton value="Gravar"  action="#{itemBean.registarMaterial()}"  resetValues="true" ajax="false"/>
                                          
 
                                     </h:panelGrid>

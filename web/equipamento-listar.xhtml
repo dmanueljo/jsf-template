@@ -9,103 +9,53 @@
         <title></title>
     </h:head>
     <h:body>
-        <h:form>            
-            <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center"  class="outer_table">
-            <tr>
-                <td>
-                    <table width="1000" height="800" cellpadding="0" cellspacing="0" border="0" align="center">
-                        <tr>
-                            <td align="center">
-                                <p:panel id="panelGeral" styleClass="centralizado"  header="Lista de Material Informático Obsoleto"  style="margin-top: 10px; width: 1024px; border: 0">
-
-                                    <h:panelGrid columns="8" cellpadding="10">
-
-                                        
-                                        <p:dataTable id="Material" 
-                                                     var="material" 
-                                                     value="#{itemBean.listarMaterial}"
-                                                     selectionMode="single">
-            
-            <p:column headerText="Id">
-                <h:outputText value="#{material.id}" /> 
+       <h:form>
+    <div class="card">
+        <p:dataTable var="item" value="#{itemView.items}">
+            <p:column headerText="ID">
+                <h:outputText value="#{item.material.id}" />
             </p:column>
-                                            
+            
             <p:column headerText="Tipo">
-                <h:outputText value="#{material.tipo}" /> 
+                <h:outputText value="#{item.material.tipo}" />
             </p:column>
             
-               <p:column headerText="Marca">
-                <h:outputText value="#{material.marca}" />
+            <p:column headerText="Marca">
+                <h:outputText value="#{item.material.marca}" />
+            </p:column>
+
+            <p:column headerText="Processador">
+                <h:outputText value="#{item.material.processador}" />
+            </p:column>
+
+            <p:column headerText="Referencia">
+                <h:outputText value="#{item.material.referencia}" />
             </p:column>
             
-              <p:column headerText="Referência">
-                <h:outputText value="#{material.referencia}" />
+            <p:column headerText="Número de Série">
+                <h:outputText value="#{item.material.referencia}" />
             </p:column>
             
-                <p:column headerText="Processador">
-                <h:outputText value="#{material.processador}" />
+            <p:column headerText="Ano de Fabrico">
+                <h:outputText value="#{item.material.anoFabrico}" />
             </p:column>
-             
-             
-                 <p:column headerText="Número de Serie">
-                <h:outputText value="#{material.serialNumber}" />
-                 </p:column>
-                
-                <p:column headerText="Ano de Fabrico">
-                <h:outputText value="#{material.anoFabrico}" />
+            
+            <p:column headerText="Data de Entrada">
+                <h:outputText value="#{item.dataEntrada}" />
             </p:column>
-                       
+            
+            <p:column headerText="Data de Leilão">
+                <h:outputText value="#{item.dataLeilao}" />
+            </p:column>
+            
+            <p:column headerText="">
+                <p:commandButton value="Editar"   action="#{itemBean.editar(item.material.id)}" />
+                <p:commandButton value="Deletar"  action="#{itemBean.deletar(item.material.id)}" />
+            </p:column>
+        
         </p:dataTable>
-
-            <p:dialog header="Material Visualizado" widgetVar="materialDialog" modal="true" showEffect="fade"
-                  hideEffect="fade" resizable="false">
-            <p:outputPanel id="materialDetail" style="text-align:center;">
-                <p:column rendered="#{not empty dtContextMenuView.selectedMaterial}">
-                    <div class="material">
-                        <div class="material-grid-item border-0" style="margin-bottom: 0">
-                            <div class="material-grid-item-top">
-                                
-                                <span class="material-badge referencia-#{dtContextMenuView.selectedMaterial.referencia.name().toLowerCase()}">#{dtContextMenuView.selectedmaterial.referencia.text}</span>
-                            </div>
-                            <div class="material-grid-item-content">
-                               
-                                <div class="material-tipo">#{dtContextMenuView.selectedMaterial.tipo}</div>
-                                <div class="material-marca">#{dtContextMenuView.selectedPMaterial.marca}</div>
-                                <div class="material-referecia">#{dtContextMenuView.selectedMaterial.referencia}</div>
-                                <div class="material-processador">#{dtContextMenuView.selectedPMaterial.processador}</div>
-                                <div class="material-anoFabrico">#{dtContextMenuView.selectedMaterial.anoFabrico}</div>
-                               <p:rating readonly="true" value="#{dtContextMenuView.selectedMaterial.rating}"/>
-                            </div>
-                            <div class="material-grid-item-bottom">
-                               
-                                </div>
-                        </div>
-                    </div>
-                </p:column>
-              
-
-                                  
-                            </p:outputPanel>
-        </p:dialog>
-                                      
-                                   </h:panelGrid>  
-                                </p:panel>
-                            </td>
-                        </tr>
-                       
-                    </table>
-                </td>
-            </tr>
-                <div class="card">
-                           
-                            <p:commandButton type="button" value="Actualuizar" />
-                            <p:commandButton type="button" value="Eliminar" />
-                          </div>
-        </table> 
-                    
-               <div class="p-d-inline-flex">Inline Flex Container</div>                                                
-    </h:form>        
-          </h:body>
-           
+    </div>
+</h:form>
+    </h:body>
 </html>
 

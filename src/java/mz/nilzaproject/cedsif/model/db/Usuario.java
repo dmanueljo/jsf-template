@@ -9,8 +9,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -41,12 +43,13 @@ public class Usuario implements Serializable {
     @JoinTable(name = "usuario_material", joinColumns = {
         @JoinColumn(name = "usuario_id", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "material_id", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     @XmlTransient
     private List<Material> materialList = new ArrayList<>();
 
     @Basic(optional = false)
     @Id
+    //@GeneratedValue
     @Column(name = "id")
     private int id;
     @Basic(optional = false)
@@ -63,7 +66,7 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(int id, String perfil, String username, String password, String nameDescription) {
+    public Usuario(String perfil, String username, String password, String nameDescription) {
         this.id = id;
         this.perfil = perfil;
         this.username = username;

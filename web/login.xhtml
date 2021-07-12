@@ -21,10 +21,10 @@
                                     <h:panelGrid columns="2" cellpadding="5">
                                         
                                         <h:outputLabel for="username" value="username" />
-                                        <p:inputText id="username" required="true" label="Username"/>
+                                        <p:inputText id="username" required="true" value="#{loginBean.username}" label="Username"/>
 
                                         <h:outputLabel for="password" value="password" />
-                                        <p:password id="password"  required="true" label="Password" />
+                                        <p:password id="password"  required="true"  value="#{loginBean.password}" label="Password" />
                                         
                                         <p:commandButton action="#{loginBean.doLogin}" value="Login"/>
 

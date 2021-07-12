@@ -1,16 +1,10 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- * Author:  nilza.graca
- * Created: 15/jun/2021
- */
+ --Author:  nilza.graca
+ --Created: 15/jun/2021
 
---ALTER TABLE table_name 
---MODIFY column_name INT NOT NULL AUTO_INCREMENT PRIMARY KEY;
-
+--create user sa@'localhost' identified with mysql_native_password BY '';
+--GRANT ALL ON `armazemdb`.* TO 'sa'@'localhost';
+--Create database
+create database armazemdb;
 --Entidade Material
 create table material(
     id              int,
@@ -23,14 +17,13 @@ create table material(
     idade           int,
     PRIMARY KEY (id)
 );
-
 --Entidade ArmazemItem
 create table armazem_item(
     id          int,
     codigo      int,
     material_id int,
     dataEntrada timestamp,
-    dataLeilao  datetime NULL,
+    dataLeilao  timestamp null,
     status      varchar(80), --LEILOADO, OBSOLETO
     PRIMARY KEY(id),
     --Criando os refencias as tabelas
@@ -38,7 +31,6 @@ create table armazem_item(
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
-
 --Entidade Usuario
 create table usuario(
     id          int,
@@ -48,7 +40,6 @@ create table usuario(
     nameDescription varchar(80),
     PRIMARY KEY(id,perfil)
 );
-
 --composition
 create table usuario_material(
     usuario_id  int,

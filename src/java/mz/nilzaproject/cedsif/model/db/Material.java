@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -48,6 +49,7 @@ public class Material implements Serializable {
     
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
@@ -70,15 +72,27 @@ public class Material implements Serializable {
     @OneToMany(mappedBy = "materialId")
     private List<ArmazemItem> armazemItemList = new ArrayList<>();
     */
-   
-    
-    public Material() {
-    }
 
     public Material(Integer id) {
         this.id = id;
     }
 
+    
+    public Material(String tipo, String marca, String referencia, String processador, String serialNumber, Integer anoFabrico, Integer idade) {
+        this.id = id;
+        this.tipo = tipo;
+        this.marca = marca;
+        this.referencia = referencia;
+        this.processador = processador;
+        this.serialNumber = serialNumber;
+        this.anoFabrico = anoFabrico;
+        this.idade = idade;
+    }
+
+    public Material() {
+    }
+
+    
     public Integer getId() {
         return id;
     }

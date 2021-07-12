@@ -15,11 +15,17 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import mz.nilzaproject.cedsif.dao.UsuarioDAO;
 import mz.nilzaproject.cedsif.model.db.Usuario;
 import mz.nilzaproject.cedsif.service.UsuarioService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Scope;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.SessionScope;
 
@@ -28,8 +34,7 @@ import org.springframework.web.context.request.SessionScope;
  * @author nilza.graca
  */
 
-@Component
-@ManagedBean(name = "loginBean")
+@Component("loginBean")
 @RequestScoped
 public class LoginBean implements Serializable{
     
@@ -39,32 +44,43 @@ public class LoginBean implements Serializable{
      * Fazer as ligacoes dos componentes do JSF renderizados pela HTML
      * e os Controllers
      */
-    private HtmlInputText inputUser;
-    
-    @ManagedProperty(value="#{menuBean}")
+       
+    //@ManagedProperty(value = "#{userDao}")
+    @Autowired
+    private UsuarioDAO userDao;
+   
     private String username;
+    private String password;
 
      private static Log LOG = LogFactory.getLog(LoginBean.class);
-        
-    @Inject
+     
+    @Autowired(required = false)
     private UsuarioService userService;
 
+    
+    //@Inject
+    //private UsuarioDAO userDao;
+
+    @Autowired
+    HibernateTemplate hibernate;
+
+       
     public String getUsername() {
         return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public HtmlInputText getInputUser() {
-        return inputUser;
-    }
-
-    public void setInputUser(HtmlInputText inputUser) {
-        this.inputUser = inputUser;
-    }
-   
     
     /**
      * Redireciona a tela para o menu
@@ -72,19 +88,32 @@ public class LoginBean implements Serializable{
      */
     public String doLogin(){
         
-        Map<String,String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        
-        String usernam = map.get("j_idt5:username");
-        String password = map.get("j_idt5:password");
-        //FacesServlet servle = Servlet
-        try{
-            userService.createOrUpdate(new Usuario(1, "ADMIN", username, password, "NI Graca"));
-            LOG.info("Button Login Requested. Sending Request to Menu.xhtml"+username+""+password+""+map.keySet());
-
-        }catch(NullPointerException nux){
-        
-             LOG.info("Button Login Requested. Error"+nux.getLocalizedMessage());
+        Usuario user = null;
+        String mensagem = "";
+        //verificar se usuario existe, atraves do servico caso contrario retorna mensagem
+        for (Usuario u : this.userService.list()){
+            
+            //se a conta for igual
+            if(u.getUsername().equals(username)){
+                
+                //pega no usuario
+                user = u;
+                break;
+            }
         }
+        
+        if(user ==null){
+            
+            //envia mensagem
+            mensagem = "Usuário não existente";
+            //FacesServlet servle = Servlet
+            FacesContext context = FacesContext.getCurrentInstance();
+        
+            return "login";
+        }
+        
+        LOG.info("Button Login Selecionado");
+        
         return "menu?faces-redirect=true";
     }
     

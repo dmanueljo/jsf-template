@@ -20,13 +20,15 @@
     <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
+    <!--
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
+    -->
     <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-name>facesServlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -44,14 +46,20 @@
             <param-value>true</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
-    </servlet> -->
+    </servlet> 
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
+        <url-pattern>*.htm</url-pattern>
+    </servlet-mapping>
+    -->
+    <servlet-mapping>
+        <servlet-name>facesServlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
+    
     <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
+        <servlet-name>facesServlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     
     <!--

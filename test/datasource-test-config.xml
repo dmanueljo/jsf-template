@@ -12,7 +12,7 @@
     <!--Carrega as propriedades da DB-->
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-          p:location="classpath:datasource-prod-config.properties" />
+          p:location="classpath:datasource-test-config.properties" />
     
     <bean id="dataSource"
           class="com.mchange.v2.c3p0.ComboPooledDataSource" 
@@ -40,7 +40,7 @@
                 <prop key="hibernate.show_sql">true</prop>
                 <!--<prop key="hibernate.connection.SetBigStringTryClob">false</prop>-->
                 <prop key="hibernate.jdbc.batch_size">0</prop>
-                <!--<prop key="hibernate.hbm2ddl.auto">${spring.jpa.properties.hibernate.hbm2ddl.auto}</prop>-->
+                <prop key="hibernate.hbm2ddl.auto">${spring.jpa.properties.hibernate.hbm2ddl.auto}</prop>
             </props>
         </property>
     </bean>
@@ -49,8 +49,7 @@
     <bean name="htemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-    
-    
+       
     <!--Finalizando a configuracao com uma Tx-->
     <tx:annotation-driven/>
     <bean id="transactionManager"

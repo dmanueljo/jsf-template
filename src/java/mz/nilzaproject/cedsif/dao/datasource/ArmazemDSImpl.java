@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,12 +20,15 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author nilza.graca
+ * @param <T>
  * @param <ID>
  */
 @Repository
 public abstract class ArmazemDSImpl<T extends Object,ID extends Serializable> implements ArmazemDS<T,ID> {
    
-    //@Autowired
+    @Autowired
+    private SessionFactory sessionFactory;
+    
     private Session session;
     
     private static Log LOG = LogFactory.getLog(ArmazemDSImpl.class);
@@ -35,16 +39,10 @@ public abstract class ArmazemDSImpl<T extends Object,ID extends Serializable> im
         this.clazz = (Class<T>) ((ParameterizedType) getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[0];
         
-       // if(htemplate.getSessionFactory().getCurrentSession()==null){
-            
-            this.session = htemplate.getSessionFactory().openSession();
-            
-        //}else{
+       
          
-          //  this.session = htemplate.getSessionFactory().getCurrentSession();
-        
-        //}
-        
+            this.session = htemplate.getSessionFactory().openSession();
+               
         LOG.warn("Loading class[" + this.clazz.getName()+"]");  
 
     }
@@ -58,7 +56,7 @@ public abstract class ArmazemDSImpl<T extends Object,ID extends Serializable> im
     @Override
     public void createOrUpdate(T entity) {
         
-       T o = (T) session.merge(entity);
+       session.saveOrUpdate(entity);
        session.flush();
     }
 

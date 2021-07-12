@@ -7,11 +7,15 @@ package mz.nilzaproject.cedsif.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import mz.nilzaproject.cedsif.model.db.ArmazemItem;
 import mz.nilzaproject.cedsif.model.db.Material;
 import mz.nilzaproject.cedsif.service.ArmazemItemService;
 import mz.nilzaproject.cedsif.service.MaterialService;
@@ -26,9 +30,9 @@ import org.springframework.stereotype.Component;
  *
  * @author nilza.graca
  */
-@Component
-@SessionScoped
-@ManagedBean(name="itemBean")
+@Component("itemBean")
+@ViewScoped
+//@ManagedBean(name="itemBean")
 public class ArmazemItemBean implements Serializable {
     
     private static Log LOG = LogFactory.getLog(ArmazemItemBean.class);
@@ -38,16 +42,13 @@ public class ArmazemItemBean implements Serializable {
     private String processador;
     private String referencia;
     private String serialNumber;
-    private String anoFabrico;
+    private Integer anoFabrico;
     
     @Autowired
     private MaterialService materialService;
     
     @Autowired
     private ArmazemItemService itemService;
-    
-    @Autowired
-    HibernateTemplate ht;
     
     public List<String> selectTipoMateriais(){
         
@@ -136,27 +137,55 @@ public class ArmazemItemBean implements Serializable {
     /**
      * @return the anoFabrico
      */
-    public String getAnoFabrico() {
+    public Integer getAnoFabrico() {
         return anoFabrico;
     }
 
     /**
      * @param anoFabrico the anoFabrico to set
      */
-    public void setAnoFabrico(String anoFabrico) {
+    public void setAnoFabrico(Integer anoFabrico) {
         this.anoFabrico = anoFabrico;
     }
     
     public String registarMaterial(){
     
-        LOG.info("Registando o matetrial "+tipo+" Tamanho da lista"+ht);
+        Material material = new Material(tipo, marca, referencia, processador, serialNumber, anoFabrico, 0);
+        
+        //gravar material
+        materialService.createOrUpdate(material);
+        
+        ArmazemItem item = new ArmazemItem(material.getId(), Calendar.getInstance().getTime());
+        item.setMaterial(material);
+        item.setCodigo(material.getId());
+        item.setDataLeilao(null);
+          
+        //gravar
+        this.itemService.createOrUpdate(item);
+        
+        LOG.info("Registando o matetrial "+tipo+" Tamanho da lista");
+        
         return "menu"; 
     }
     
-    public List<Material> listarMaterial(){
+    public List<ArmazemItem> listarMaterial(){
         
-        LOG.info("Total de Material"+materialService.list().size());
-        return new ArrayList();
+        LOG.info("Total de Material "+itemService.list().size());
+        return this.itemService.list();
+    }
+    
+    public String editar(Integer id){
+        
+        LOG.info("Editando "+itemService.list().size());
+        return ""; 
+    }
+    
+    public String deletar(Integer id){
+        
+        LOG.info("Removendo "+itemService.list().size());
+        this.itemService.delete(id);
+        
+        return "equipamento-listar";
     }
     
 }

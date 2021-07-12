@@ -14,15 +14,16 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
  *
  * @author nilza.graca
  */
-@Component
-@ManagedBean(name="menuBean")
-@SessionScoped
+@Component("menuBean")
+//@ManagedBean(name="menuBean")
+@ViewScoped
 public class MenuBean implements Serializable {
     
     //@ManagedProperty(value="#{menuBean}")
