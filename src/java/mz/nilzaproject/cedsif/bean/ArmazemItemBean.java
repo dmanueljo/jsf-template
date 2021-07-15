@@ -55,16 +55,10 @@ public class ArmazemItemBean implements Serializable {
     public int getitemId() {
         return materialService.list().size() + 1;
     }
-    
-    @PostConstruct
-    public void init(){
-        
-        selectMaterais = new ArrayList();
-        selectTipoProcessadores = new ArrayList();
-        anoFabricoList = new ArrayList<>();
-    }
 
     public List<String> getAnoFabricoList() {
+        
+        anoFabricoList = new ArrayList<>();
         
         for(int i =1;i<8;i++){
             anoFabricoList.add(new String("202"+i));
@@ -94,6 +88,8 @@ public class ArmazemItemBean implements Serializable {
    */
     public List<String> getSelectMateriais(){
         
+        selectMaterais = new ArrayList();
+        
         selectMaterais.add(new String("Laptop"));
         selectMaterais.add(new String("Impressora"));
         selectMaterais.add(new String("Computador"));
@@ -102,6 +98,8 @@ public class ArmazemItemBean implements Serializable {
     }
     
     public List getSelectTipoProcessadores(){
+        
+        selectTipoProcessadores = new ArrayList();
         
         selectTipoProcessadores.add(new String("Dual Core"));
         selectTipoProcessadores.add(new String("Core i3"));

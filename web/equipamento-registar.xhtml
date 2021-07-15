@@ -52,12 +52,12 @@
                         
                         <tr>
                             <td>Marca</td>
-                            <td><h:inputText id="marca" class="" /></td>
+                            <td><h:inputText id="marca" value="#{itemBean.item.material.marca}" class="" /></td>
                         </tr>
 
                         <tr>
                             <td>Referenência</td>
-                            <td><h:inputText id="referencia" class="" /></td>
+                            <td><h:inputText id="referencia" value="#{itemBean.item.material.referencia}" class="" /></td>
                         </tr>
                         <tr>
                             <td>Processador</td>
@@ -77,7 +77,7 @@
                                 <select id="tipo" style="width: 430px;">
                                     <option value="0">Selecione</option>
                                     <c:forEach var="category" items="#{itemBean.selectMateriais}" > 
-                                        <option value="${category}">${category}</option>
+                                        <option value="#{itemBean.item.material.marca}">${category}</option>
                                     </c:forEach>
                                 </select>
                                 
