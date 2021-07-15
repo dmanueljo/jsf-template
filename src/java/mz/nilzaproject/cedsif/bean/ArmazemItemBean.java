@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -31,129 +32,98 @@ import org.springframework.stereotype.Component;
  * @author nilza.graca
  */
 @Component("itemBean")
-@ViewScoped
-//@ManagedBean(name="itemBean")
+@RequestScoped
 public class ArmazemItemBean implements Serializable {
     
     private static Log LOG = LogFactory.getLog(ArmazemItemBean.class);
     
-    private String tipo;
-    private String marca;
-    private String processador;
-    private String referencia;
-    private String serialNumber;
-    private Integer anoFabrico;
+    private ArmazemItem item;
+    private int itemId;
     
+    //private Material material;
+    
+    private List<String> selectMaterais;
+    private List<String> selectTipoProcessadores;
+    private List<String> anoFabricoList;
+
     @Autowired
     private MaterialService materialService;
     
     @Autowired
     private ArmazemItemService itemService;
-    
-    public List<String> selectTipoMateriais(){
-        
-        List<String> materiais = new ArrayList();
-        
-        return materiais;
+
+    public int getitemId() {
+        return materialService.list().size() + 1;
     }
     
-    public List selectTipoProcessadores(){
+    @PostConstruct
+    public void init(){
         
-        List<String> processadores = new ArrayList();
+        selectMaterais = new ArrayList();
+        selectTipoProcessadores = new ArrayList();
+        anoFabricoList = new ArrayList<>();
+    }
+
+    public List<String> getAnoFabricoList() {
         
-        return processadores;
+        for(int i =1;i<8;i++){
+            anoFabricoList.add(new String("202"+i));
+        }
+        
+        return anoFabricoList;
     }
 
-    /**
-     * @return the tipo
-     */
-    public String getTipo() {
-        return tipo;
+
+    
+    public ArmazemItem getItem() {
+        return item;
     }
 
-    /**
-     * @param tipo the tipo to set
-     */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setItem(ArmazemItem item) {
+        this.item = item;
     }
 
-    /**
-     * @return the marca
-     */
-    public String getMarca() {
-        return marca;
+    /*
+    public Material getMaterial() {
+        return material;
     }
 
-    /**
-     * @param marca the marca to set
-     */
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setMaterial(Material material) {
+        this.material = material;
     }
-
-    /**
-     * @return the processador
-     */
-    public String getProcessador() {
-        return processador;
-    }
-
-    /**
-     * @param processador the processador to set
-     */
-    public void setProcessador(String processador) {
-        this.processador = processador;
-    }
-
-    /**
-     * @return the referencia
-     */
-    public String getReferencia() {
-        return referencia;
-    }
-
-    /**
-     * @param referencia the referencia to set
-     */
-    public void setReferencia(String referencia) {
-        this.referencia = referencia;
-    }
-
-    /**
-     * @return the serialNumber
-     */
-    public String getSerialNumber() {
-        return serialNumber;
-    }
-
-    /**
-     * @param serialNumber the serialNumber to set
-     */
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
-    /**
-     * @return the anoFabrico
-     */
-    public Integer getAnoFabrico() {
-        return anoFabrico;
-    }
-
-    /**
-     * @param anoFabrico the anoFabrico to set
-     */
-    public void setAnoFabrico(Integer anoFabrico) {
-        this.anoFabrico = anoFabrico;
+   */
+    public List<String> getSelectMateriais(){
+        
+        selectMaterais.add(new String("Laptop"));
+        selectMaterais.add(new String("Impressora"));
+        selectMaterais.add(new String("Computador"));
+        
+        return selectMaterais;
     }
     
+    public List getSelectTipoProcessadores(){
+        
+        selectTipoProcessadores.add(new String("Dual Core"));
+        selectTipoProcessadores.add(new String("Core i3"));
+        selectTipoProcessadores.add(new String("Core i4"));
+        selectTipoProcessadores.add(new String("Core i5"));
+        
+        return selectTipoProcessadores;
+    }
+
+       
     public String registarMaterial(){
     
-        Material material = new Material(tipo, marca, referencia, processador, serialNumber, anoFabrico, 0);
+        Material material = new Material(item.getMaterial().getTipo(), 
+                item.getMaterial().getMarca(), 
+                item.getMaterial().getReferencia(),
+                item.getMaterial().getProcessador(),
+                item.getMaterial().getSerialNumber(),
+                item.getMaterial().getAnoFabrico(), 
+                0);
         
         //gravar material
-        materialService.createOrUpdate(material);
+        //materialService.createOrUpdate(material);
         
         ArmazemItem item = new ArmazemItem(material.getId(), Calendar.getInstance().getTime());
         item.setMaterial(material);
@@ -161,11 +131,12 @@ public class ArmazemItemBean implements Serializable {
         item.setDataLeilao(null);
           
         //gravar
-        this.itemService.createOrUpdate(item);
+        //this.itemService.createOrUpdate(item);
         
-        LOG.info("Registando o matetrial "+tipo+" Tamanho da lista");
+        LOG.info("Registando o matetrial "+material.getMarca()+" Tamanho da lista marca");
+        LOG.info("Registando o armazem   "+item.getStatus()   +" Tamanho da lista item");
         
-        return "menu"; 
+        return "equipamento-registar?faces-redirect=true"; 
     }
     
     public List<ArmazemItem> listarMaterial(){

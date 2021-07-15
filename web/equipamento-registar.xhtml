@@ -22,7 +22,7 @@
                          
                          <div id="" class="">
                         <fieldset>
-                                <legend>Detalhe-Automovel</legend>
+                                <legend>Registo-Equipamento</legend>
                     <table border="0px">
                         <tr>
                             <td height="" colspan="2">
@@ -47,61 +47,63 @@
                         </tr>
                         <tr>
                             <td>ID</td>
-                            <td><input type="text"   value=""/></td>
+                            <td><h:inputText id="itemId" value="#{itemBean.itemId}" class="" /></td>
                         </tr>
                         
-
-                        <tr>
-                            <td>Matricula</td>
-                            <td><input type="text"  name="matricula" /></td>
-                        </tr>
-
                         <tr>
                             <td>Marca</td>
-                            <td><input type="text" name="marca"/></td>
+                            <td><h:inputText id="marca" class="" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>Referenência</td>
+                            <td><h:inputText id="referencia" class="" /></td>
                         </tr>
                         <tr>
-                            <td>Modelo</td>
-                            <td><input type="text"  name="modelo" value=""/></td>
-                        </tr>
-                        <tr>
-                            <td rowspan="1">Tipo Automovel</td>
-                            <!--selecting categories-->
+                            <td>Processador</td>
                             <td>
-                                <select name="tpAutomovel" id="catId" style="width: 430px;">
+                                <select id="processador" style="width: 430px;">
                                     <option value="0">Selecione</option>
-                                    <c:forEach var="category" items="${automovel}" > 
+                                    <c:forEach var="category" items="#{itemBean.selectTipoProcessadores}" > 
                                         <option value="${category}">${category}</option>
                                     </c:forEach>
                                 </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">Tipo de Computador</td>
+                            <!--selecting categories-->
+                            <td>
+                                <select id="tipo" style="width: 430px;">
+                                    <option value="0">Selecione</option>
+                                    <c:forEach var="category" items="#{itemBean.selectMateriais}" > 
+                                        <option value="${category}">${category}</option>
+                                    </c:forEach>
+                                </select>
+                                
+                                <!--
+                                <h:selectManyListbox id="tipo" >
+                                    
+                                </h:selectManyListbox>
+                                -->
                             </td>
                         </tr>
                          <tr>
-                            <td>Quilometragem</td>
-                            <td><input type="text"  name="quilometragem" value=""/></td>
+                            <td>Serial Number</td>
+                             <td><h:inputText id="serialNumber" class="" /></td>
                         </tr>
                         <tr>
-                            <td>Lotação</td>
+                            <td>Ano de Fabrico</td>
                             <td>
-                                <select name="lotacao" id="catId" style="width: 430px;">
+                                <select id="anoFabrico" style="width: 430px;">
                                     <option value="0">Selecione</option>
-                                    <c:forEach var="category" items="${lotacao}" > 
+                                    <c:forEach var="category" items="#{itemBean.anoFabricoList}" > 
                                         <option value="${category}">${category}</option>
                                     </c:forEach>
                                 </select>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Cor</td>
-                            <td>
-                                <select name="chassiCor" id="catId" style="width: 430px;">
-                                    <option value="0">"Selecione</option>
-                                    <c:forEach var="category" items="${cores}" > 
-                                        <option value="${category}">${category}</option>
-                                    </c:forEach>
-                                </select>
-                            </td>
-                        </tr>
+                      
                         <tr>
                             <td>Ano de Fabrico</td>
                             <td><input type="text"  name="anoFabrico" value="${orderValue}"/></td>
@@ -109,7 +111,8 @@
                                               
                         <tr>
                             <td>&nbsp;</td>
-                            <td><button type="submit" style="color: #39F">submeter</button></td>
+                            <td><p:commandButton id="registarMaterial" action="#{itemBean.registarMaterial()}" value="Salvar" ajax="false"/></td>
+   
                         </tr>
                     </table>
                 </fieldset>
