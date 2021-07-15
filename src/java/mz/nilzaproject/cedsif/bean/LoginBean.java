@@ -86,11 +86,13 @@ public class LoginBean implements Serializable{
      * Redireciona a tela para o menu
      * @return 
      */
-    public String doLogin(){
+    public String fazerLogin(){
         
         Usuario user = null;
         String mensagem = "";
         //verificar se usuario existe, atraves do servico caso contrario retorna mensagem
+       
+        try{
         for (Usuario u : this.userService.list()){
             
             //se a conta for igual
@@ -111,13 +113,17 @@ public class LoginBean implements Serializable{
         
             return "login";
         }
+        }catch(NullPointerException nux){
+            
+            
+        LOG.info("Button Login Selecionado"+username);
+        }
         
-        LOG.info("Button Login Selecionado");
         
-        return "menu?faces-redirect=true";
+        return "menu-item?faces-redirect=true";
     }
     
-    public String doLogout(){
+    public String fazerLogout(){
         
         //userService.createOrUpdate(new Usuario(1, "USER", username, password, "EMPTY"));
       
@@ -128,7 +134,7 @@ public class LoginBean implements Serializable{
           LOG.info("Mapa de Sessoes "+session);
         //session.invalidate();
         
-        return "logout?faces-redirect=true";
+        return "login?faces-redirect=true";
     }
 
     

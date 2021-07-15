@@ -6,37 +6,69 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Login-Template</title>
+        <title>Autenticação</title>
     </h:head>
+
     <h:body>
-        
-        <h:form>            
-        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center"  class="outer_table">
-            <tr>
-                <td>
-                    <table width="500" height="300" cellpadding="0" cellspacing="0" border="0" align="center">
+        <ui:composition template="/newTemplate.xhtml">
+
+            <ui:debug/>
+
+            <ui:define name="left" class="left-blank">
+                <!-- empty -->
+            </ui:define>
+
+            <ui:define name="content" class="left-blank">
+                <h:form>
+                    <table>
                         <tr>
-                            <td align="center">
-                                <p:panel header="Login">
-                                    <h:panelGrid columns="2" cellpadding="5">
-                                        
-                                        <h:outputLabel for="username" value="username" />
-                                        <p:inputText id="username" required="true" value="#{loginBean.username}" label="Username"/>
-
-                                        <h:outputLabel for="password" value="password" />
-                                        <p:password id="password"  required="true"  value="#{loginBean.password}" label="Password" />
-                                        
-                                        <p:commandButton action="#{loginBean.doLogin}" value="Login"/>
-
-                                    </h:panelGrid>
-                                </p:panel>
+                            <td>User:</td>
+                            <td><h:inputText id="username" required="true" value="#{loginBean.username}" label="Username"/></td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td>
+                            <td><h:inputSecret id="password" required="true" value="#{loginBean.password}" label="Password"/></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <p:commandButton value="Logar"  action="#{loginBean.fazerLogin()}"  resetValues="true" ajax="false"/>
                             </td>
                         </tr>
                     </table>
-                </td>
-            </tr>
-        </table>
-    </h:form>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+    <h:body>
+
+        <!--  REMOVE AFTER -->
+        <h:form>            
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center"  class="outer_table">
+                <tr>
+                    <td>
+                        <table width="500" height="300" cellpadding="0" cellspacing="0" border="0" align="center">
+                            <tr>
+                                <td align="center">
+
+
+                                    <h:outputLabel for="username" value="username" />
+                                    <p:inputText id="username" required="true" value="#{loginBean.username}" label="Username"/>
+
+                                    <h:outputLabel for="password" value="password" />
+                                    <p:password id="password"  required="true"  value="#{loginBean.password}" label="Password" />
+
+                                    <p:commandButton action="#{loginBean.fazerLogin}" value="Login"/>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
     </h:body>
 </html>
 

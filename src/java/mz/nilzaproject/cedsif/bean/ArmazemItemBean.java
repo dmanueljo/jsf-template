@@ -44,7 +44,7 @@ public class ArmazemItemBean implements Serializable {
     
     private List<String> selectMaterais;
     private List<String> selectTipoProcessadores;
-    private List<String> anoFabricoList;
+    private List<Integer> anoFabricoList;
 
     @Autowired
     private MaterialService materialService;
@@ -56,12 +56,12 @@ public class ArmazemItemBean implements Serializable {
         return materialService.list().size() + 1;
     }
 
-    public List<String> getAnoFabricoList() {
+    public List<Integer> getAnoFabricoList() {
         
         anoFabricoList = new ArrayList<>();
         
-        for(int i =1;i<8;i++){
-            anoFabricoList.add(new String("202"+i));
+        for(int i =1;i>2000 && i<2021;i++){
+            anoFabricoList.add(new Integer(i));
         }
         
         return anoFabricoList;
