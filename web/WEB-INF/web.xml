@@ -32,6 +32,15 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
+    <mime-mapping>
+    <extension>woff</extension>
+    <mime-type>application/font-woff</mime-type>
+</mime-mapping>
+<mime-mapping>
+    <extension>jsp</extension>
+    <mime-type>text/html</mime-type>
+  </mime-mapping>
     <!--
     <servlet>
         <servlet-name>Spring Servlet</servlet-name>

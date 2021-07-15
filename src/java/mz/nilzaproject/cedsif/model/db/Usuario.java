@@ -108,9 +108,27 @@ public class Usuario implements Serializable {
     public void setMaterialList(List<Material> materialList) {
         this.materialList = materialList;
     }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     
     @Override
     public String toString() {
         return "mz.nilzaproject.cedsif.model.db.Usuario[ id=" + id + ", perfil=" + perfil + " ]";
+        
     }
 }

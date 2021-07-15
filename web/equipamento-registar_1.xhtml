@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Cadastro de Material Informático Obsoleto</title>
+    </h:head>
+    <h:body>
+        <h:form>            
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center"  class="outer_table">
+            <tr>
+                <td>
+                    <table width="500" height="300" cellpadding="0" cellspacing="0" border="0" align="center">
+                        <tr>
+                            <td align="center">
+                                <p:panel header="Cadastro de Equipamento Informático Obsoleto">
+                                    <h:panelGrid columns="2" cellpadding="5">
+
+                                        
+                                        <h:outputLabel for="tipo" value="Tipo de Material"/>
+                                        <h:selectOneMenu id="tipo" value="#{itemBean.tipo}" required="true" label="Tipo de Material">
+                                        <f:selectItem itemLabel="Selecione uma opção" itemValue="" noSelectionOption="true"/>
+                                        <f:selectItem itemLabel="IMPRESSORA" itemValue="IMPRESSORA"/>
+                                        <f:selectItem itemLabel="DESKTOP" itemValue="DESKTOP"/>
+                                        <f:selectItem itemLabel="LAPTOP" itemValue="LAPTOP"/>
+                                        </h:selectOneMenu>
+                                        <p:message for="tipo"/>
+                                        <h:outputText value="#{itemBean.tipo}"/>
+                                                                            
+                                        <h:outputLabel for="marca" value="Marca" />
+                                        <p:inputText id="marca" value="#{itemBean.marca}" required="true" label="Marca"  />
+
+                                        <h:outputLabel for="processador" value="Processador" />
+                                        <p:inputText id="processador" value="#{itemBean.processador}" required="true" label="Processador" />
+                                        
+                                        <h:outputLabel for="referencia" value="Referencia" />
+                                        <p:inputText id="referencia" value="#{itemBean.referencia}" required="true" label="Referência" />
+                               
+                                        <h:outputLabel for="serialNumber" value="Número de Serié" />
+                                        <p:inputText id="serialNumber" value="#{itemBean.serialNumber}" required="true" label="Número de Serié" />
+                                        
+                                            <h:outputLabel for="anoFabrico" value="Ano de Fabrico"/>
+                                            <h:selectOneMenu id="anoFabrico" value="#{itemBean.anoFabrico}" required="true" label="Ano ">
+                                            <f:selectItem itemLabel="Selecione o Ano" itemValue="" noSelectionOption="true"/>
+                                            <f:selectItem itemLabel="2000" itemValue="1"/>
+                                            <f:selectItem itemLabel="2001" itemValue="2"/>
+                                            <f:selectItem itemLabel="2002" itemValue="3"/>
+                                            <f:selectItem itemLabel="2003" itemValue="4"/>
+                                            <f:selectItem itemLabel="2004" itemValue="5"/>
+                                            <f:selectItem itemLabel="2005" itemValue="6"/>
+                                            <f:selectItem itemLabel="2006" itemValue="7"/>
+                                            <f:selectItem itemLabel="2007" itemValue="8"/>
+                                            <f:selectItem itemLabel="2008" itemValue="9"/>
+                                            <f:selectItem itemLabel="2009" itemValue="10"/>
+                                            <f:selectItem itemLabel="2010" itemValue="11"/>
+                                            <f:selectItem itemLabel="2011" itemValue="12"/>
+                                            <f:selectItem itemLabel="2012" itemValue="13"/>
+                                            <f:selectItem itemLabel="2013" itemValue="14"/>
+                                            <f:selectItem itemLabel="2014" itemValue="15"/>
+                                            <f:selectItem itemLabel="2015" itemValue="16"/>
+                                            <f:selectItem itemLabel="2016" itemValue="17"/>
+                                            <f:selectItem itemLabel="2017" itemValue="18"/>
+                                            </h:selectOneMenu>
+                                            <p:message for="anoFabrico"/>
+                                            <h:outputText value="#{itemBean.anoFabrico}"/>
+                                       
+                                            <p:commandButton value="Gravar"  action="#{itemBean.registarMaterial()}"  resetValues="true" ajax="false"/>
+                                         
+
+                                    </h:panelGrid>
+                                </p:panel>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </h:form>
+    </h:body>
+</html>
+

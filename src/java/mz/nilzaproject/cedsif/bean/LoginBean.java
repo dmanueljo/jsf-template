@@ -120,10 +120,13 @@ public class LoginBean implements Serializable{
     public String doLogout(){
         
         //userService.createOrUpdate(new Usuario(1, "USER", username, password, "EMPTY"));
-        LOG.info("Button Logout Requested. Sending Request to Logout.xhtml");
+      
         FacesContext fc = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-        session.invalidate();
+        Map<String,Object> session =  fc.getExternalContext().getSessionMap();
+        
+          LOG.info("Button Logout Requested. Sending Request to Logout.xhtml ");
+          LOG.info("Mapa de Sessoes "+session);
+        //session.invalidate();
         
         return "logout?faces-redirect=true";
     }

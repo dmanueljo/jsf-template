@@ -7,9 +7,12 @@ package mz.nilzaproject.cedsif.bean;
 
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.xml.registry.infomodel.User;
 import mz.nilzaproject.cedsif.model.db.Usuario;
 import mz.nilzaproject.cedsif.service.UsuarioService;
 import org.apache.commons.logging.Log;
@@ -27,40 +30,46 @@ import org.springframework.stereotype.Component;
 @ViewScoped
 public class UsuarioBean implements Serializable {
     
-    private String username;
-    private String password;
-    private String perfil;
-    private String nameDescription;
-    
+   
     @ManagedProperty(value="#{menuBean}")
     private String link;
   
     private static Log LOG = LogFactory.getLog(UsuarioBean.class);
-    
-    @PostConstruct
-    public void init(){
-        
-        username ="";
-        password ="";
-        perfil  ="";
-        nameDescription ="";
-    }
-    
+   
     @Autowired
     private transient UsuarioService userService;
     
+    private Usuario user;
+
+    @PostConstruct
+    public void init() {
+        
+        user = new Usuario();
+    }
+    
+    public Usuario getUser() {
+        return user;
+    }
+    
+    //-----------------------------------------operacoes
     public String registarUsuario(){
         
         //criar o object usuaruio
-        Usuario user = new Usuario(getPerfil(), getUsername(), getPassword(), getNameDescription());
+        Usuario userPorlogar = new Usuario(user.getPerfil(), user.getUsername(), user.getPassword(), user.getNameDescription());
         
         for (Usuario u : this.userService.list()){
             
             //se a conta for igual
-            if(u.getUsername().equals(username)){
+            if(u.getUsername().equals(user.getUsername())){
                 
                 //pega no usuario
-                String message ="Usuario "+getUsername()+" gravado com sucesso"+link;
+                String message ="Usuario "+u.getUsername()+" já existe no sistema";
+                
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, 
+                        "Erro", 
+                        message);
+                
+                FacesContext.getCurrentInstance().addMessage(null, msg);
                 
                 return "login?faces-redirect=true";  
             }
@@ -69,68 +78,22 @@ public class UsuarioBean implements Serializable {
         //invoca um recuros de FacesServlet, para enviar a messagem ao
         //componente de mensagem na tela
         
+        this.userService.createOrUpdate(user);
+        
+        String message ="Usuario "+user.getUsername()+" ja foi registado";
+        
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, 
+                        "Sucesso", 
+                        message);
+                
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        
         //retornar a pagina redirecionada
         return "menu?faces-redirect=true";
         
     }
 
-    /**
-     * @return the username
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * @param username the username to set
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * @return the perfil
-     */
-    public String getPerfil() {
-        return perfil;
-    }
-
-    /**
-     * @param perfil the perfil to set
-     */
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
-    }
-
-    /**
-     * @return the nameDescription
-     */
-    public String getNameDescription() {
-        return nameDescription;
-    }
-
-    /**
-     * @param nameDescription the nameDescription to set
-     */
-    public void setNameDescription(String nameDescription) {
-        this.nameDescription = nameDescription;
-    }
-
-    /**
+       /**
      * @return the link
      */
     public String getLink() {
